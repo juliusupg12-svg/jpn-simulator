@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>JPN Simulator: Malaysia Registration Office</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pn:#fffaf0;--tx:#10283d;--mu:#667585;--bl:#1f5fa8;--go:#ffc83d;--rd:#d23b3b;--ok:#2e9c6a;--ln:#e4dccb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pn:#16293c;--tx:#f1ede2;--mu:#9fb0c0;--ln:#2b4258}}
+:root[data-theme="dark"]{--pn:#16293c;--tx:#f1ede2;--mu:#9fb0c0;--ln:#2b4258}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;overflow:hidden;background:#cfe3f2;color:var(--tx);font:500 14px/1.3 'Baloo 2',system-ui,sans-serif;touch-action:none;user-select:none}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+.p{background:var(--pn);border:2px solid var(--tx);border-radius:14px;box-shadow:0 3px 0 var(--tx)}
+#top{position:fixed;left:6px;right:6px;top:calc(6px + env(safe-area-inset-top,0px));display:flex;gap:5px;flex-wrap:wrap;pointer-events:none}
+.ch{pointer-events:auto;padding:3px 9px;min-width:64px;display:flex;flex-direction:column}
+.ch small{color:var(--mu);font-size:11px;line-height:1}.ch b{font-size:16px;line-height:1.1}
+.bar{height:8px;border-radius:5px;background:var(--ln);overflow:hidden;margin-top:3px}.bar i{display:block;height:100%;background:var(--ok);width:0}
+#qp{position:fixed;right:6px;top:calc(62px + env(safe-area-inset-top,0px));width:210px;max-height:42vh;overflow:auto;padding:8px}
+#qp h4{margin:0 0 4px;font-size:13px}#qp canvas{width:100%;height:34px;display:block}
+.qh{font-weight:700;margin-top:6px;font-size:13px}
+.tk{display:inline-block;margin:2px 3px 0 0;padding:1px 7px 5px;border-radius:8px;border:2px solid var(--tx);background:#fff4c7;color:#10283d;font-weight:700;font-size:12px;cursor:pointer;position:relative}
+.tk i{position:absolute;left:3px;bottom:1px;height:3px;border-radius:2px}
+#card{position:fixed;left:6px;top:calc(62px + env(safe-area-inset-top,0px));width:min(320px,calc(100vw - 12px));max-height:48vh;overflow:auto;padding:10px;display:none}
+#card h3{margin:0 0 4px;font-size:16px}#card p{margin:4px 0}.x{float:right;border:0;background:none;color:var(--tx);font-size:18px;min-width:36px;min-height:36px;margin:-8px -8px 0 0}
+.doc{background:var(--ln);border-radius:10px;padding:8px;margin-top:6px}.bd{color:var(--rd)}
+select{font:inherit;min-height:36px;max-width:100%;border:2px solid var(--tx);border-radius:8px;background:var(--pn);color:var(--tx)}
+#dock{position:fixed;left:6px;right:6px;bottom:calc(6px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:5px}
+#cs{display:flex;gap:5px;overflow-x:auto}
+.cc{flex:1 0 118px;text-align:left;padding:5px 8px;border:2px solid var(--tx);border-radius:12px;background:var(--pn);color:var(--tx);font:inherit;cursor:pointer;box-shadow:0 3px 0 var(--tx);min-height:48px}
+.cc.sel{background:var(--go);color:#10283d}.cc small{display:block;opacity:.8}.cc.al{animation:bl .8s infinite alternate}
+@keyframes bl{to{background:#ffd9d9;color:#10283d}}@media(prefers-reduced-motion:reduce){.cc.al{animation:none;outline:3px solid var(--rd)}}
+#ct{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.b{min-height:42px;min-width:42px;padding:6px 12px;border:2px solid var(--tx);border-radius:11px;background:var(--go);color:#10283d;font:700 14px 'Baloo 2',system-ui,sans-serif;cursor:pointer;box-shadow:0 3px 0 var(--tx)}
+.b:active{transform:translateY(2px);box-shadow:0 1px 0 var(--tx)}.b.g{background:#7be0a8}.b.r{background:#ff9d9d}.b.w{background:var(--pn);color:var(--tx)}.b[disabled]{opacity:.5}
+#big{font-size:17px;padding:6px 18px;background:#7be0a8}
+#md{position:fixed;inset:0;display:none;place-items:center;background:rgba(16,40,61,.6);z-index:9;padding:10px}#md.on{display:grid}
+#mb{max-width:470px;width:100%;max-height:86vh;overflow:auto;padding:18px}#mb h2{margin:0 0 6px;font-size:24px}
+#mb table{width:100%;border-collapse:collapse}#mb td{padding:3px 0;border-bottom:1px solid var(--ln)}#mb td:last-child{text-align:right;font-weight:700}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--ln)}
+.gr{font-size:60px;font-weight:700;color:var(--bl);line-height:1}
+#ts{position:fixed;left:50%;transform:translateX(-50%);top:calc(112px + env(safe-area-inset-top,0px));z-index:8;padding:6px 14px;display:none;pointer-events:none;text-align:center;max-width:90vw}
+#ld,#er{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:#10283d;color:#ffc83d;font-size:22px;text-align:center;padding:20px}#er{display:none}
+#qt{display:none}
+@media(max-width:760px){#qp{display:none}#qp.show{display:block}#qt{display:inline-block}#card{top:auto;bottom:150px;max-height:38vh}.ch{min-width:52px;padding:2px 6px}.ch b{font-size:14px}#ts{top:auto;bottom:210px}}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="top"></div>
+<div id="qp" class="p"><h4>Queue · waiting customers</h4><canvas id="sp" width="190" height="34"></canvas><div id="ql"></div></div>
+<div id="card" class="p"></div>
+<div id="ts" class="p"></div>
+<div id="dock"><div id="cs"></div><div id="ct">
+<button id="big" class="b" onclick="callAny()">📣 CALL NEXT</button>
+<button class="b w" id="bp" onclick="togglePause()">⏸ Pause</button>
+<button class="b w" id="bs" onclick="cycleSpeed()">⏩ x1</button>
+<button class="b w" onclick="staffM()">👥 Staff</button>
+<button class="b w" onclick="shopM()">🛠 Upgrades</button>
+<button class="b w" id="qt" onclick="$('#qp').classList.toggle('show')">🎫 Queue</button>
+<button class="b w" id="bm" onclick="toggleMute()">🔊</button>
+<button class="b w" onclick="tut(0)">❔</button>
+<button class="b w" onclick="closeOffice()">🚪 Close office</button>
+<button class="b r" onclick="restartAll()">🔄 Restart</button></div></div>
+<div id="md"><div id="mb" class="p"></div></div>
+<div id="ld">Opening the JPN office…</div>
+<div id="er"><div><b>3D graphics unavailable</b><br><small style="color:#fff">This game needs WebGL (or the Three.js CDN could not load). Enable hardware acceleration or try another browser, then reload.</small></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+'use strict';
+const $=s=>document.querySelector(s),R=(a,b)=>a+Math.random()*(b-a),P=a=>a[Math.random()*a.length|0],pad=n=>String(n).padStart(3,'0');
+const CN=['MyKad Services','Birth Registration','Personal Information','General Services'],CL='ABCD',CX=[-6,-2,2,6];
+const SV=[
+{n:'New MyKad',c:0,t:12,f:10,d:['Birth certificate','Parent MyKad','Passport photo']},
+{n:'Replace lost/damaged MyKad',c:0,t:10,f:20,d:['Police report','Passport photo']},
+{n:'Update MyKad details',c:0,t:8,f:0,d:['Old MyKad','Supporting letter']},
+{n:'Birth registration',c:1,t:13,f:0,d:['Hospital notice','Parents MyKad','Marriage cert']},
+{n:'Birth cert replacement',c:1,t:9,f:10,d:['Parent MyKad','Police report']},
+{n:'Check submitted documents',c:1,t:6,f:0,d:['Submitted forms','Receipt slip']},
+{n:'Address update',c:2,t:7,f:5,d:['Old MyKad','Utility bill']},
+{n:'Record correction',c:2,t:11,f:15,d:['Old MyKad','Supporting letter','Request form']},
+{n:'Registration enquiry',c:2,t:5,f:0,d:['Request form']},
+{n:'Document verification',c:3,t:8,f:5,d:['Original document','Copy']},
+{n:'General enquiry',c:3,t:5,f:0,d:['Request form']},
+{n:'Directions to counter',c:3,t:4,f:0,d:['Request form']}];
+const NAMES=['Farid','Siti','Wei Jie','Kavita','Amir','Nurul','Jason','Devi','Hakim','Aisyah','Ming','Arun','Balqis','Daniel','Suria'];
+const SK=[0xf1c9a5,0xd9a273,0xb97a50,0x8d5a38,0xf5d6b8],SH=[0xd9534f,0x4a90d9,0x5cb85c,0xf0ad4e,0x9b59b6,0xe67e9a,0x2c3e50,0xe8e8e8,0x16a085],HR=[0x1b1b1b,0x3b2a20,0x5a3a22,0x111827,0x6b6b6b];
+const KEY='jpn_sim_v1',defs=()=>({day:1,money:200,cols:6,pc:0,open4:false,staff:[{n:'Aina',r:'MyKad officer',sp:1.2,c:0,served:0,busy:0},{n:'Raj',r:'Registrar',sp:1,c:1,served:0,busy:0},{n:'Mei',r:'Clerk',sp:.9,c:2,served:0,busy:0}]});
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.staff&&s.day)return s}catch(e){}return defs()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+let S=load(),D,sel=null,speed=1,paused=false,modalOn=false,muted=false,mode='idle',uid=0,ta=0,lastSig='',lastMsg='';
+const target=()=>8+3*S.day;
+function newDay(){D={t:480,el:0,custs:[],q:[[],[],[],[]],kq:[],tn:[0,0,0,0],now:['---','---','---','---'],cur:[null,null,null,null],open:[1,1,1,S.open4?1:0],served:0,earn:0,lost:{},waits:[],samples:[],err:0,pts:0,spawn:1.5,hist:[],ht:0,dirty:1}}
+newDay();
+/* ---------- audio ---------- */
+let AC;function snd(f,d,ty,v,dl){if(muted)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+(dl||0);o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.08,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}}
+const sfx={call(){snd(880,.25,'sine',.1);snd(660,.45,'sine',.1,.25)},click(){snd(520,.05,'square',.04)},tick(){snd(300,.08,'sawtooth',.04);snd(250,.08,'sawtooth',.04,.09)},arrive(){snd(440,.12,'sine',.05)},done(){snd(660,.1,'triangle');snd(990,.2,'triangle',.08,.1)},bad(){snd(150,.3,'sawtooth',.07)},end(){[523,659,784,1046].forEach((f,i)=>snd(f,.3,'triangle',.08,i*.15))}};
+/* ---------- three.js scene ---------- */
+let ren;try{if(typeof THREE==='undefined')throw 0;ren=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true})}catch(e){$('#ld').style.display='none';$('#er').style.display='grid';throw new Error('no webgl')}
+ren.shadowMap.enabled=true;ren.setPixelRatio(Math.min(devicePixelRatio||1,2));
+const sc=new THREE.Scene();sc.background=new THREE.Color(0xcfe3f2);
+const cam=new THREE.PerspectiveCamera(45,1,.1,100),cs={a:0,e:.95,d:innerWidth<innerHeight?34:21,tx:0,tz:0};
+function setCam(){cs.e=Math.max(.35,Math.min(1.35,cs.e));cs.a=Math.max(-1,Math.min(1,cs.a));cs.d=Math.max(9,Math.min(38,cs.d));cs.tx=Math.max(-8,Math.min(8,cs.tx));cs.tz=Math.max(-5,Math.min(5,cs.tz));cam.position.set(cs.tx+cs.d*Math.sin(cs.a)*Math.cos(cs.e),cs.d*Math.sin(cs.e),cs.tz+cs.d*Math.cos(cs.a)*Math.cos(cs.e));cam.lookAt(cs.tx,0,cs.tz)}
+function rs(){ren.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}addEventListener('resize',rs);rs();setCam();
+sc.add(new THREE.HemisphereLight(0xffffff,0xb8c4d6,.75));
+const sun=new THREE.DirectionalLight(0xffffff,.65);sun.position.set(6,14,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14});sc.add(sun);
+const M=c=>new THREE.MeshLambertMaterial({color:c}),v=(x,z)=>new THREE.Vector3(x,0,z);
+function box(w,h,d,c,x,y,z,p){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M(c));m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;(p||sc).add(m);return m}
+function ctex(w,h,fn){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');fn(x,w,h);const t=new THREE.CanvasTexture(c);t.redraw=()=>{x.clearRect(0,0,w,h);fn(x,w,h);t.needsUpdate=true};return t}
+function plane(w,h,t,x,y,z,ry){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t}));m.position.set(x,y,z);m.rotation.y=ry||0;sc.add(m);return m}
+const ft=ctex(64,64,(x)=>{x.fillStyle='#e9eef2';x.fillRect(0,0,64,64);x.fillStyle='#dbe4ec';x.fillRect(0,0,32,32);x.fillRect(32,32,32,32)});ft.wrapS=ft.wrapT=THREE.RepeatWrapping;ft.repeat.set(10,8);
+const fl=new THREE.Mesh(new THREE.PlaneGeometry(20,16),new THREE.MeshLambertMaterial({map:ft}));fl.rotation.x=-Math.PI/2;fl.receiveShadow=true;sc.add(fl);
+box(20.6,4.4,.3,0xf4efe3,0,2.2,-8.15);box(.3,4.4,16,0xefe8d6,-10.15,2.2,0);box(.3,4.4,16,0xefe8d6,10.15,2.2,0);box(20,.45,.1,0x1f5fa8,0,.9,-7.95);
+plane(7,1.3,ctex(700,130,(x,w,h)=>{x.fillStyle='#10283d';x.fillRect(0,0,w,h);x.fillStyle='#ffc83d';x.font='bold 58px sans-serif';x.textAlign='center';x.fillText('JABATAN PENDAFTARAN NEGARA',w/2,62);x.fillStyle='#fff';x.font='28px sans-serif';x.fillText('Malaysia Registration Office',w/2,106)}),1.2,3.4,-7.95);
+plane(2.6,1.3,ctex(260,130,(x,w,h)=>{for(let i=0;i<14;i++){x.fillStyle=i%2?'#fff':'#cc0001';x.fillRect(0,i*h/14,w,h/14+1)}x.fillStyle='#010066';x.fillRect(0,0,w/2,h*8/14);x.fillStyle='#fc0';x.beginPath();x.arc(w*.19,h*.285,h*.2,0,7);x.fill();x.fillStyle='#010066';x.beginPath();x.arc(w*.23,h*.285,h*.16,0,7);x.fill();x.fillStyle='#fc0';x.beginPath();for(let i=0;i<28;i++){const r=i%2?h*.05:h*.12,a=i*Math.PI/14;x.lineTo(w*.34+r*Math.cos(a),h*.285+r*Math.sin(a))}x.fill()}),6.3,3.4,-7.95);
+const qDisp=ctex(512,256,(x,w,h)=>{x.fillStyle='#07131f';x.fillRect(0,0,w,h);x.fillStyle='#ffc83d';x.font='bold 28px sans-serif';x.fillText('NOMBOR GILIRAN · NOW SERVING',14,36);for(let i=0;i<4;i++){const y=52+i*50;x.fillStyle='#fff';x.font='bold 26px sans-serif';x.fillText('KAUNTER '+(i+1),14,y+32);x.fillStyle=D.now[i]!=='---'?'#5df0a0':'#4a5d70';x.font='bold 40px monospace';x.fillText(D.now[i],320,y+36)}});
+plane(4,2,qDisp,-7.4,3.2,-7.95);
+const clk=ctex(128,128,(x,w,h)=>{x.fillStyle='#fff';x.beginPath();x.arc(64,64,60,0,7);x.fill();x.strokeStyle='#10283d';x.lineWidth=6;x.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;x.beginPath();x.moveTo(64+50*Math.sin(a),64-50*Math.cos(a));x.lineTo(64+56*Math.sin(a),64-56*Math.cos(a));x.stroke()}const m=D.t%60,hh=(D.t/60)%12+m/60;[[hh*Math.PI/6,32,6],[m*Math.PI/30,48,3]].forEach(([a,l,wd])=>{x.lineWidth=wd;x.beginPath();x.moveTo(64,64);x.lineTo(64+l*Math.sin(a),64-l*Math.cos(a));x.stroke()})});
+plane(1.5,1.5,clk,9,3.2,-7.95);
+const lamps=[];
+CX.forEach((x,i)=>{box(3.2,1,1.2,0x1f5fa8,x,.5,-5).userData.o={t:'c',i};box(3.35,.1,1.35,0xf7f3ea,x,1.03,-5).userData.o={t:'c',i};box(.75,.5,.06,0x222a33,x-.8,1.5,-5.15);box(.12,.3,.12,0x555555,x-.8,1.2,-5.15);box(.6,.04,.25,0x888888,x-.8,1.1,-4.8);box(.55,.1,.45,0x8b6b3d,x+.7,1.13,-5);box(.45,.05,.35,0xffffff,x+.7,1.2,-5);
+plane(2.4,.6,ctex(240,60,(c,w,h)=>{c.fillStyle='#1f5fa8';c.fillRect(0,0,w,h);c.fillStyle='#ffc83d';c.font='bold 44px sans-serif';c.fillText(i+1,10,46);c.fillStyle='#fff';c.font='bold 20px sans-serif';c.fillText(CN[i].toUpperCase(),50,38)}),x,2.7,-4.7);
+const l=new THREE.Mesh(new THREE.SphereGeometry(.13,10,8),new THREE.MeshBasicMaterial({color:0x888888}));l.position.set(x+1.35,1.25,-4.55);sc.add(l);lamps.push(l)});
+const seats=[];for(let i=0;i<10;i++)for(let r=0;r<2;r++){const x=-5+i*1.4,z=r?1.9:.3,g=new THREE.Group();g.position.set(x,0,z);box(.7,.12,.7,0x2f6f9f,0,.45,0,g);box(.7,.6,.12,0x2f6f9f,0,.82,.32,g);box(.1,.4,.1,0x333333,0,.22,0,g);sc.add(g);seats.push({g,x,z,col:i,aisle:x+.7,occ:null})}
+box(.7,1.4,.9,0x10283d,-9.4,.7,3.2);box(.05,.5,.6,0x5df0a0,-9.04,1.1,3.2);plane(1.6,.5,ctex(160,50,(x,w,h)=>{x.fillStyle='#ffc83d';x.fillRect(0,0,w,h);x.fillStyle='#10283d';x.font='bold 22px sans-serif';x.fillText('AMBIL NOMBOR',8,32)}),-10,2.3,3.2,Math.PI/2);
+box(1.2,1,2.8,0xb8742f,-8.8,.5,-1.8);plane(1.6,.4,ctex(160,40,(x,w,h)=>{x.fillStyle='#10283d';x.fillRect(0,0,w,h);x.fillStyle='#fff';x.font='bold 22px sans-serif';x.fillText('INFORMATION',8,28)}),-10,2.1,-1.8,Math.PI/2);
+[[-4,8],[9.2,8]].forEach(([x,z],k)=>{box(.2,3,.3,0x6b4a2b,x-1,1.5,z);box(.2,3,.3,0x6b4a2b,x+1,1.5,z);box(2.4,.3,.3,0x6b4a2b,x,3,z);plane(1.4,.4,ctex(140,40,(c,w,h)=>{c.fillStyle=k?'#b03030':'#2e9c6a';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.font='bold 24px sans-serif';c.textAlign='center';c.fillText(k?'KELUAR':'MASUK',w/2,28)}),x,3.4,z+.2)});
+box(2.2,.8,1.2,0x9b7b55,9,.4,-7.2);plane(1.8,.4,ctex(180,40,(x,w,h)=>{x.fillStyle='#d23b3b';x.fillRect(0,0,w,h);x.fillStyle='#fff';x.font='bold 20px sans-serif';x.fillText('STAFF ONLY',24,27)}),9,2.3,-7.9);
+[[-9.3,-6.8],[9.3,6.8],[-9.3,7],[9.3,-3]].forEach(([x,z])=>{const g=new THREE.Group();g.position.set(x,0,z);box(.6,.5,.6,0xc0653b,0,.25,0,g);const l=new THREE.Mesh(new THREE.SphereGeometry(.55,10,8),M(0x3f9d4d));l.position.y=1;l.castShadow=true;g.add(l);sc.add(g)});
+const selR=new THREE.Mesh(new THREE.RingGeometry(.45,.6,24),new THREE.MeshBasicMaterial({color:0xffc83d,side:2}));selR.rotation.x=-Math.PI/2;selR.position.y=.03;selR.visible=false;sc.add(selR);
+/* ---------- people ---------- */
+function person(o){const g=new THREE.Group(),a=(geo,mat,x,y,z,p)=>{const k=new THREE.Mesh(geo,mat);k.position.set(x,y,z);k.castShadow=true;(p||g).add(k);return k};
+const body=a(new THREE.CylinderGeometry(.26,.32,.72,14),M(o.sh),0,.95,0),head=a(new THREE.SphereGeometry(.28,18,14),M(o.sk),0,1.55,0);
+a(new THREE.SphereGeometry(.04,6,6),M(0x111111),-.1,1.58,.25);a(new THREE.SphereGeometry(.04,6,6),M(0x111111),.1,1.58,.25);
+if(o.style===1)a(new THREE.SphereGeometry(.33,16,12),M(o.hr),0,1.57,-.06).scale.set(1,1.05,.9);else{a(new THREE.SphereGeometry(.3,16,8,0,6.29,0,1.57),M(o.hr),0,1.58,-.02);if(o.style===2)a(new THREE.BoxGeometry(.5,.5,.14),M(o.hr),0,1.4,-.25);if(o.style===3)a(new THREE.CylinderGeometry(.2,.23,.18,12),M(0x111111),0,1.88,0)}
+if(o.gl){a(new THREE.TorusGeometry(.07,.015,6,12),M(0x111111),-.1,1.58,.28);a(new THREE.TorusGeometry(.07,.015,6,12),M(0x111111),.1,1.58,.28)}
+const lim=x=>{const p=new THREE.Group();p.position.set(x,.55,0);g.add(p);a(new THREE.CylinderGeometry(.1,.09,.55,8),M(o.pant),0,-.27,0,p);a(new THREE.BoxGeometry(.2,.1,.3),M(0x222222),0,-.55,.06,p);return p};
+const arm=x=>{const p=new THREE.Group();p.position.set(x,1.25,0);g.add(p);a(new THREE.CylinderGeometry(.07,.07,.5,8),M(o.sh),0,-.22,0,p);a(new THREE.SphereGeometry(.08,8,6),M(o.sk),0,-.5,0,p);return p};
+const out={g,body,head,L:lim(-.13),R:lim(.13),aL:arm(-.34),aR:arm(.34),ph:Math.random()*6,path:[],ry:0,moving:false,sit:false};g.userData.o=out;sc.add(g);return out}
+function move(o,sd){const g=o.g;o.moving=false;if(o.path.length){const p=o.path[0],dx=p.x-g.position.x,dz=p.z-g.position.z,d=Math.hypot(dx,dz),st=2.3*sd;o.moving=d>1e-3&&sd>0;if(d<=st){g.position.x=p.x;g.position.z=p.z;o.path.shift();if(!o.path.length)o.moving=false}else{g.position.x+=dx/d*st;g.position.z+=dz/d*st;o.ry=Math.atan2(dx,dz)}}
+const da=((o.ry-g.rotation.y+Math.PI*3)%(Math.PI*2))-Math.PI;g.rotation.y+=da*Math.min(1,.2+sd*8)}
+function pose(o,t){const w=o.moving,s=Math.sin(t*10+o.ph)*.7;
+if(o.sit){o.L.rotation.x=o.R.rotation.x=-1.45;o.aL.rotation.x=o.aR.rotation.x=-.5}else{o.L.rotation.x=w?s:0;o.R.rotation.x=w?-s:0;o.aL.rotation.x=w?-s*.8:0;o.aR.rotation.x=w?s*.8:0}
+o.g.position.y=w?Math.abs(s)*.07:0;o.body.scale.y=1+Math.sin(t*2+o.ph)*.012;
+if(o.typing){o.aL.rotation.x=-1+Math.sin(t*14)*.15;o.aR.rotation.x=-1+Math.cos(t*14)*.15}
+if(o.pat!==undefined&&o.pat<35&&o.st==='wait'){o.head.rotation.z=Math.sin(t*8+o.ph)*.25;o.aR.rotation.x=-2.4+Math.sin(t*10)*.3}else o.head.rotation.z=0}
+function tagSprite(txt){const c=document.createElement('canvas');c.width=128;c.height=48;const x=c.getContext('2d');x.fillStyle='#ffc83d';x.strokeStyle='#10283d';x.lineWidth=5;x.beginPath();x.rect(3,3,122,42);x.fill();x.stroke();x.fillStyle='#10283d';x.font='bold 30px sans-serif';x.textAlign='center';x.fillText(txt,64,34);const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false}));s.scale.set(.9,.34,1);s.position.y=2.6;s.renderOrder=5;return s}
+let sObj=[];
+function mkStaff(s,i){const o=person({sh:0x1f5fa8,sk:P(SK),pant:0x1b2433,hr:P(HR),style:i%4,gl:i%2});o.g.userData.o={t:'s',i};o.g.position.set(8.4+(i%3)*.65,0,-7.5);return o}
+function sGo(i){const s=S.staff[i],o=sObj[i],g=o.g.position,tx=s.c>=0?CX[s.c]:8.4+(i%3)*.65,tz=s.c>=0?-6.2:-7.6;o.path=[v(g.x,-7),v(tx,-7),v(tx,tz)];o.ry=0}
+function syncStaff(){while(sObj.length<S.staff.length)sObj.push(mkStaff(S.staff[sObj.length],sObj.length));S.staff.forEach((s,i)=>sGo(i))}
+/* ---------- game logic ---------- */
+const staffAt=ci=>S.staff.findIndex(s=>s.c===ci),opOK=ci=>ci<(S.open4?4:3)&&D.open[ci]&&staffAt(ci)>=0,need=c=>{const s=S.staff[staffAt(c.sv.c)]||{sp:1};return c.sv.t/(s.sp*(1+.15*S.pc))};
+function toast(m){const e=$('#ts');e.textContent=m;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2400)}
+function pickSv(){const w=[.34,.26,.26,S.open4?.14:0],r=Math.random()*w.reduce((a,b)=>a+b);let c=0,acc=0;for(;c<3;c++){acc+=w[c];if(r<acc)break}return P(SV.filter(s=>s.c===c))}
+function spawn(){const sv=pickSv(),docs=sv.d.map(n=>({n}));let valid=true;if(Math.random()<.25){const i=Math.random()*docs.length|0;if(Math.random()<.5)docs.splice(i,1);else docs[i]={n:docs[i].n,bad:1};valid=false}
+const c=person({sk:P(SK),sh:P(SH),pant:P([0x2b3a55,0x3b3b3b,0x5a4a3a,0x1f2d44]),hr:P(HR),style:Math.random()*4|0,gl:Math.random()<.25});
+Object.assign(c,{id:++uid,name:P(NAMES),sv,docs,valid,st:'kq',pat:100,dur:R(55,85),wait:0,fresh:1,kqi:-1});c.g.position.set(-4,0,9.5);c.bar=new THREE.Sprite(new THREE.SpriteMaterial({color:0x2e9c6a,depthTest:false}));c.bar.scale.set(.8,.1,1);c.bar.position.y=2.2;c.bar.renderOrder=5;c.g.add(c.bar);D.custs.push(c);D.kq.push(c);sfx.arrive()}
+function takeTicket(c){const ci=c.sv.c;D.kq.splice(D.kq.indexOf(c),1);c.tick=CL[ci]+pad(++D.tn[ci]);c.tag=tagSprite(c.tick);c.g.add(c.tag);D.q[ci].push(c);sfx.tick();
+const s=seats.find(s=>s.col<S.cols&&!s.occ);if(s){s.occ=c;c.seat=s;c.st='toSeat';c.path=[v(s.aisle,3.4),v(s.aisle,s.z),v(s.x,s.z)]}else{c.st='wait';c.path=[v(R(-5,7),3.6)];c.ry=Math.PI}}
+function aisleOf(x){return Math.max(-4.3,Math.min(8.3,Math.round((x+4.3)/1.4)*1.4-4.3))}
+function exitPath(c,fc){const p=c.g.position;if(fc)return[v(p.x,-1.5),v(9.2,-1.5),v(9.2,8.9)];const ax=c.seat?c.seat.aisle:aisleOf(p.x);return(c.seat&&c.sit?[v(ax,c.seat.z)]:[]).concat([v(ax,3.4),v(9.2,3.4),v(9.2,8.9)])}
+function lose(c,why,sample){D.lost[why]=(D.lost[why]||0)+1;D.samples.push(sample)}
+function leave(c,fc){c.st='leave';c.path=exitPath(c,fc);c.sit=false;c.typing=false;if(c.seat){c.seat.occ=null}if(c.tag)c.tag.visible=false;c.bar.visible=false;D.dirty=1}
+function abandon(c,why){const ci=c.sv.c;D.q[ci]=D.q[ci].filter(x=>x!==c);D.kq=D.kq.filter(x=>x!==c);lose(c,why,5);leave(c,false);D.pts-=3;sfx.bad();toast(c.name+' left: '+why.toLowerCase())}
+function callNext(ci,quiet){if(mode!=='run')return false;const bad=m=>{if(!quiet)toast(m);return false};if(!opOK(ci))return bad('Counter '+(ci+1)+' is closed or has no staff');if(D.cur[ci])return bad('Counter '+(ci+1)+' is busy');
+const c=D.q[ci].find(c=>c.st==='wait');if(!c)return bad('Nobody is waiting at counter '+(ci+1)+' yet');
+D.q[ci].splice(D.q[ci].indexOf(c),1);D.cur[ci]=c;D.waits.push(c.wait);D.now[ci]=c.tick;D.dirty=1;const p=c.g.position,ax=c.seat?c.seat.aisle:aisleOf(p.x);
+c.path=(c.seat?[v(ax,c.seat.z)]:[v(ax,3.4)]).concat([v(ax,-1.5),v(CX[ci],-1.5),v(CX[ci],-3.5)]);if(c.seat)c.seat.occ=null;c.sit=false;c.st='toCounter';sfx.call();toast('Now calling '+c.tick+' → Counter '+(ci+1));sel={t:'c',i:ci};lastSig='';return true}
+function callAny(){sfx.click();if(mode!=='run')return;if(sel&&sel.t==='c'&&callNext(sel.i,1))return;for(let i=0;i<4;i++)if(callNext(i,1))return;toast('No free staffed counter with someone waiting')}
+function approve(i){const c=D.cur[i];if(!c||c.st!=='at')return;sfx.click();c.st='proc';c.prog=0;lastSig=''}
+function reject(i){const c=D.cur[i];if(!c||c.st!=='at')return;sfx.click();D.cur[i]=null;if(c.valid){D.err++;D.pts-=10;lose(c,'Rejected in error',20);toast('Oops! Documents were fine. −10 pts')}else{lose(c,'Incomplete documents (sent away)',55);D.pts+=3;toast('Correct: documents were incomplete. +3 pts')}leave(c,1);lastSig=''}
+function finish(c){const i=c.sv.c,s=S.staff[staffAt(i)];D.cur[i]=null;if(s)s.served++;if(c.valid){D.served++;D.earn+=c.sv.f;S.money+=c.sv.f;D.pts+=10+(c.pat/10|0);D.samples.push(c.pat*.7+30);sfx.done();if(c.sv.f)toast('+RM'+c.sv.f+' (game value)')}else{D.err++;D.pts-=15;S.money-=5;D.samples.push(15);const k='Processing error (approved bad documents)';D.lost[k]=(D.lost[k]||0)+1;sfx.bad();toast('Processing error! Documents were not valid. −RM5, −15 pts')}leave(c,1);lastSig=''}
+function frame(dt){const run=mode==='run'&&!paused&&!modalOn,sd=run?dt*speed:0;ta+=sd;
+if(run){D.t+=sd*3.6;D.el+=sd;D.spawn-=sd;const iv=Math.max(2.2,8.5-(S.day-1)*.7)*(D.t>690&&D.t<810?.65:1);if(D.spawn<=0&&D.t<990){spawn();D.spawn=iv*R(.6,1.4)}
+D.ht+=sd;if(D.ht>3){D.ht=0;D.hist.push(D.q.reduce((a,q)=>a+q.length,0));if(D.hist.length>60)D.hist.shift()}
+D.kq.forEach((c,i)=>{if(c.kqi!==i){c.kqi=i;c.path=(c.fresh?[v(-4,6.8)]:[]).concat([v(-8,3.2+.9*i)]);c.fresh=0}});
+const f=D.kq[0];if(f&&f.st==='kq'&&!f.path.length){f.st='tick';f.tk=1.2;f.ry=-Math.PI/2}
+sObj.forEach(o=>o.typing=false);
+for(const c of D.custs.slice()){const ci=c.sv.c;
+if(c.st==='tick'){c.tk-=sd;if(c.tk<=0)takeTicket(c)}
+else if(c.st==='toSeat'||c.st==='wait'){if(c.st==='toSeat'&&!c.path.length){c.st='wait';c.sit=true;c.ry=Math.PI}
+c.pat-=100/c.dur*(opOK(ci)?1:1.6)*sd;c.wait+=sd;if(c.pat<=0)abandon(c,opOK(ci)?'Waited too long':'Counter closed or unstaffed')}
+else if(c.st==='toCounter'&&!c.path.length){c.st='at';c.ry=Math.PI;sel={t:'c',i:ci};lastSig='';sfx.arrive();toast(c.tick+' is at counter '+(ci+1)+' — check the documents')}
+else if(c.st==='proc'){const si=staffAt(ci);if(si>=0){sObj[si].typing=true;S.staff[si].busy+=sd}c.prog+=sd;if(c.prog>=need(c))finish(c)}
+else if(c.st==='leave'&&!c.path.length){sc.remove(c.g);D.custs.splice(D.custs.indexOf(c),1);if(sel&&sel.c===c){sel=null;lastSig=''}}
+if(c.bar&&c.bar.visible){c.bar.scale.x=.8*Math.max(.03,c.pat/100);c.bar.material.color.setHex(c.pat>60?0x2e9c6a:c.pat>30?0xf0ad4e:0xd23b3b)}}
+if(D.t>=1020)endDay()}
+for(const o of D.custs.concat(sObj)){move(o,sd);pose(o,ta)}
+if(run)for(const a of D.custs)if(a.moving)for(const b of D.custs)if(a!==b&&!b.sit){const dx=a.g.position.x-b.g.position.x,dz=a.g.position.z-b.g.position.z,d=Math.hypot(dx,dz);if(d>.01&&d<.55){a.g.position.x+=dx/d*.012;a.g.position.z+=dz/d*.012}}
+if(sel){const o=sel.t==='c'?{x:CX[sel.i],z:-3.5}:sel.t==='s'?sObj[sel.i].g.position:sel.c.g.position;selR.visible=true;selR.position.x=o.x;selR.position.z=o.z}else selR.visible=false}
+function endDay(){if(mode!=='run')return;mode='report';D.custs.forEach(c=>{if(c.st!=='leave')lose(c,'Office closed',10)});sfx.end();
+const sat=D.samples.length?D.samples.reduce((a,b)=>a+b)/D.samples.length:100,score=Math.min(1,D.served/target())*60+sat*.4-D.err*4,gr=score>=92?'S':score>=80?'A':score>=65?'B':score>=50?'C':'D',hit=D.served>=target(),bonus=hit?40+S.day*20+(gr==='S'||gr==='A'?30:0):0;
+S.money+=bonus;const day=S.day,tg=target();S.day++;save();
+const aw=D.waits.length?D.waits.reduce((a,b)=>a+b)/D.waits.length:0,lost=Object.entries(D.lost);
+modal(`<h2>Day ${day} report</h2><div class="gr">${gr}</div><p>${hit?'Target met! Bonus RM'+bonus+' (game value).':'Target missed — serve '+tg+' customers.'}</p><table><tr><td>Customers served</td><td>${D.served} / ${tg}</td></tr><tr><td>Fee revenue (game RM)</td><td>RM ${D.earn}</td></tr><tr><td>Avg waiting time</td><td>${aw.toFixed(0)}s</td></tr><tr><td>Satisfaction</td><td>${sat.toFixed(0)}%</td></tr><tr><td>Processing errors</td><td>${D.err}</td></tr><tr><td>Points</td><td>${D.pts}</td></tr><tr><td>Budget now</td><td>RM ${S.money}</td></tr></table><p><b>Lost customers</b></p><table>${lost.length?lost.map(([k,n])=>`<tr><td>${k}</td><td>${n}</td></tr>`).join(''):'<tr><td>None 🎉</td><td></td></tr>'}</table><p><small>All fees are fictional gameplay values, not official JPN fees.</small></p><p><button class="b g" onclick="startDay()">Start day ${S.day}</button> <button class="b w" onclick="shopM()">Upgrades</button></p>`)}
+function startDay(){sfx.click();D.custs.forEach(c=>sc.remove(c.g));seats.forEach(s=>s.occ=null);newDay();seats.forEach(s=>s.g.visible=s.col<S.cols);syncStaff();sel=null;mode='run';paused=false;$('#bp').textContent='⏸ Pause';closeM();qDisp.redraw();lastSig='';toast('Day '+S.day+' — office open! Target: '+target()+' customers')}
+function closeOffice(){sfx.click();if(mode==='run'&&confirm('Close the office now and see the report?')){D.t=1020;endDay()}}
+function restartAll(){sfx.click();if(!confirm('Restart from Day 1? Saved progress will be erased.'))return;S=defs();save();sObj.forEach(o=>sc.remove(o.g));sObj=[];D.custs.forEach(c=>sc.remove(c.g));seats.forEach(s=>s.occ=null);newDay();seats.forEach(s=>s.g.visible=s.col<S.cols);syncStaff();sObj.forEach((o,i)=>{o.g.position.set(S.staff[i].c>=0?CX[S.staff[i].c]:8.4+(i%3)*.65,0,S.staff[i].c>=0?-6.2:-7.6);o.path=[]});sel=null;mode='idle';paused=false;lastSig='';qDisp.redraw();intro()}
+/* ---------- ui ---------- */
+let back=null;function modal(h){$('#mb').innerHTML=h;$('#md').classList.add('on');modalOn=true}
+function closeM(){$('#md').classList.remove('on');modalOn=false;if(mode==='idle'&&back!=='x'){}}
+function intro(){modal(`<h2>Day ${S.day}</h2><p>Daily target: <b>${target()}</b> customers served. Budget: <b>RM ${S.money}</b> <small>(fictional game money)</small>.</p><p>${S.day===1?'Customers arrive faster each day. Keep waits short and check every document before approving.':'Customer volume is higher today. Consider upgrades first.'}</p><p><button class="b g" onclick="startDay()">▶ Open the office</button> <button class="b w" onclick="shopM()">Upgrades</button> <button class="b w" onclick="tut(0)">How to play</button></p>`)}
+const TUT=['<b>Welcome, manager!</b> Customers walk in, take a queue ticket at the kiosk (left wall) and wait in the chairs.','Waiting customers appear in the <b>Queue</b> list. Their bar shows patience — red means they may leave.','Press <b>CALL NEXT</b> (or select a counter first). The number shows on the wall display and the customer walks over.','At the counter, compare <b>Required</b> and <b>Presented</b> documents. <b>Approve</b> if all are valid, <b>Send back</b> if one is missing or expired.','Use <b>Staff</b> to assign people to counters and <b>Upgrades</b> for chairs, faster computers, more staff and Counter 4.','Camera: drag to rotate, wheel or pinch to zoom, WASD/arrows to pan. Tap customers or counters for details.'];
+function tut(i){sfx.click();modal(`<h2>How to play ${i+1}/${TUT.length}</h2><p>${TUT[i]}</p><p>${i<TUT.length-1?`<button class="b" onclick="tut(${i+1})">Next</button> `:''}<button class="b g" onclick="endTut()">${mode==='idle'?'Got it':'Close'}</button></p>`)}
+function endTut(){try{localStorage.setItem('jpn_tut','1')}catch(e){}if(mode==='idle')intro();else closeM()}
+function back2(){mode==='idle'?intro():closeM()}
+function staffM(){sfx.click();const el=Math.max(1,D.el);modal(`<h2>Staff</h2>${S.staff.map((s,i)=>`<div class="row"><div><b>${s.n}</b> · ${s.r}<br><small>Speed ×${(s.sp*(1+.15*S.pc)).toFixed(2)} · served ${s.served} · workload ${Math.min(100,s.busy/el*100|0)}%</small></div><select onchange="assignTo(this.value,${i},1)"><option value="-1">Break room</option>${[0,1,2,3].map(c=>`<option value="${c}" ${s.c===c?'selected':''} ${c===3&&!S.open4?'disabled':''}>Counter ${c+1}</option>`).join('')}</select></div>`).join('')}<p><button class="b w" onclick="back2()">Close</button></p>`)}
+function assignTo(a,b,fromStaff){let ci,si;if(fromStaff){si=+b;ci=+a}else{ci=+a;si=+b}sfx.click();if(fromStaff){S.staff.forEach((s,k)=>{if(k!==si&&s.c===ci&&ci>=0){s.c=-1;sGo(k)}});S.staff[si].c=ci;sGo(si)}else{const old=staffAt(ci);if(old>=0){S.staff[old].c=-1;sGo(old)}if(si>=0){S.staff.forEach((s,k)=>{if(k!==si&&s.c===ci){s.c=-1;sGo(k)}});S.staff[si].c=ci;sGo(si)}}save();lastSig='';D.dirty=1}
+function toggleC(i){sfx.click();if(i===3&&!S.open4)return;D.open[i]=D.open[i]?0:1;lastSig=''}
+function shopM(){sfx.click();const ch=S.cols<10,pc=S.pc<3,hi=S.staff.length<6;modal(`<h2>Upgrades</h2><p>Budget: <b>RM ${S.money}</b> <small>(game money)</small></p>
+<div class="row"><div>🪑 +4 chairs<br><small>${S.cols*2} now · max 20</small></div><button class="b" ${ch&&S.money>=80?'':'disabled'} onclick="buy('ch')">${ch?'RM 80':'Max'}</button></div>
+<div class="row"><div>💻 Faster computers (+15% speed)<br><small>Level ${S.pc}/3</small></div><button class="b" ${pc&&S.money>=150*(S.pc+1)?'':'disabled'} onclick="buy('pc')">${pc?'RM '+150*(S.pc+1):'Max'}</button></div>
+<div class="row"><div>🧑‍💼 Hire staff<br><small>${S.staff.length}/6 hired</small></div><button class="b" ${hi&&S.money>=150?'':'disabled'} onclick="buy('hi')">${hi?'RM 150':'Max'}</button></div>
+<div class="row"><div>🪪 Unlock Counter 4 (General)</div><button class="b" ${!S.open4&&S.money>=250?'':'disabled'} onclick="buy('c4')">${S.open4?'Owned':'RM 250'}</button></div>
+<p><button class="b w" onclick="back2()">Close</button></p>`)}
+function buy(k){sfx.click();if(k==='ch'&&S.money>=80&&S.cols<10){S.money-=80;S.cols+=2}else if(k==='pc'&&S.pc<3&&S.money>=150*(S.pc+1)){S.money-=150*(S.pc+1);S.pc++}else if(k==='hi'&&S.money>=150&&S.staff.length<6){S.money-=150;S.staff.push({n:P(['Hafiz','Lim','Priya','Zul','Nadia','Siva']),r:'Counter officer',sp:+R(.85,1.15).toFixed(2),c:-1,served:0,busy:0});syncStaff()}else if(k==='c4'&&S.money>=250&&!S.open4){S.money-=250;S.open4=true;D.open[3]=1}else return;seats.forEach(s=>s.g.visible=s.col<S.cols);save();shopM()}
+function togglePause(){sfx.click();if(mode!=='run')return;paused=!paused;$('#bp').textContent=paused?'▶ Resume':'⏸ Pause';toast(paused?'Paused':'Resumed')}
+function cycleSpeed(){sfx.click();speed=speed%3+1;$('#bs').textContent='⏩ x'+speed}
+function toggleMute(){muted=!muted;$('#bm').textContent=muted?'🔇':'🔊';sfx.click()}
+function selNone(){sel=null;lastSig='';card()}
+function selC(id){const c=D.custs.find(c=>c.id===id);if(c){sel={t:'p',c};lastSig=''}}
+function selK(i){sfx.click();sel={t:'c',i};lastSig=''}
+const ST={kq:'Heading to the ticket kiosk',tick:'Taking a ticket',toSeat:'Finding a seat',wait:'Waiting for their number',toCounter:'Walking to the counter',at:'At the counter',proc:'Being served',leave:'Leaving'};
+function docCheck(c,i){return`<div class="doc"><b>${c.tick} · ${c.name}</b><br>${c.sv.n} · fee RM${c.sv.f} <small>(game value)</small><p>Required:<br>${c.sv.d.map(d=>'• '+d).join('<br>')}</p><p>Presented:<br>${c.docs.length?c.docs.map(d=>'• '+d.n+(d.bad?' <b class="bd">(expired)</b>':'')).join('<br>'):'(nothing)'}</p><button class="b g" onclick="approve(${i})">Approve &amp; process</button> <button class="b r" onclick="reject(${i})">Send back</button></div>`}
+function card(){const el=$('#card');if(!sel){el.style.display='none';return}el.style.display='block';let h='';
+if(sel.t==='c'){const i=sel.i,st=S.staff[staffAt(i)],cu=D.cur[i];h=`<button class="x" onclick="selNone()">✕</button><h3>Counter ${i+1} · ${CN[i]}</h3>`;
+if(i===3&&!S.open4)h+='<p>Locked. Unlock it in Upgrades (RM 250).</p>';else{h+=`<p>${opOK(i)?'🟢 Open':'🔴 Closed / no staff'} · Staff: <b>${st?st.n:'none'}</b><br>Waiting: <b>${D.q[i].length}</b> · Now serving: <b>${D.now[i]}</b></p><p><select onchange="assignTo(${i},this.value,0)"><option value="-1">— no staff —</option>${S.staff.map((s,k)=>`<option value="${k}" ${s.c===i?'selected':''}>${s.n} (${s.r}, ×${s.sp})</option>`).join('')}</select></p><p><button class="b g" onclick="callNext(${i})">CALL NEXT</button> <button class="b w" onclick="toggleC(${i})">${D.open[i]?'Close':'Open'} counter</button></p>`;
+if(cu&&cu.st==='at')h+=docCheck(cu,i);else if(cu&&cu.st==='proc')h+=`<p>Processing ${cu.tick} (${cu.sv.n})…</p><div class="bar"><i id="pg"></i></div>`;else if(cu)h+=`<p>${cu.tick} is walking over…</p>`}}
+else if(sel.t==='s'){const s=S.staff[sel.i];h=`<button class="x" onclick="selNone()">✕</button><h3>${s.n}</h3><p>${s.r} · speed ×${(s.sp*(1+.15*S.pc)).toFixed(2)}<br>${s.c>=0?'At counter '+(s.c+1):'On break'} · served ${s.served}<br>Workload ${Math.min(100,s.busy/Math.max(1,D.el)*100|0)}%</p><button class="b w" onclick="staffM()">Manage staff</button>`}
+else{const c=sel.c;h=`<button class="x" onclick="selNone()">✕</button><h3>${c.name} ${c.tick?'· '+c.tick:''}</h3><p>${c.sv.n} <small>(counter ${c.sv.c+1})</small><br>${ST[c.st]||''}<br>Fee RM${c.sv.f} <small>(game value)</small></p><p>Patience</p><div class="bar"><i id="pp"></i></div><p><small>Needs: ${c.sv.d.join(', ')}</small></p>`}
+el.innerHTML=h}
+const fmt=m=>String(m/60|0).padStart(2,'0')+':'+String(m%60|0).padStart(2,'0');
+function ui(){const w=D.q.reduce((a,q)=>a+q.length,0),aw=D.waits.length?D.waits.reduce((a,b)=>a+b)/D.waits.length:0,sat=D.samples.length?D.samples.reduce((a,b)=>a+b)/D.samples.length:100,act=[0,1,2,3].filter(opOK).length,eff=act&&D.el>1?Math.min(100,S.staff.reduce((a,s)=>a+(s.c>=0?s.busy:0),0)/(act*D.el)*100):0,tg=target();
+const ch=(i,l,b,x)=>`<div class="ch p"><small>${i} ${l}</small><b>${b}</b>${x||''}</div>`;
+$('#top').innerHTML=ch('📅','Day',S.day)+ch('🕗','Time',fmt(D.t))+ch('💰','Budget','RM '+S.money)+ch('✅','Served',D.served+' / '+tg,`<div class="bar"><i style="width:${Math.min(100,D.served/tg*100)}%"></i></div>`)+ch('🧍','Waiting',w)+ch('⏱','Avg wait',aw.toFixed(0)+'s')+ch('😊','Satisfaction',sat.toFixed(0)+'%',`<div class="bar"><i style="width:${sat}%;background:${sat>60?'var(--ok)':'var(--rd)'}"></i></div>`)+ch('🪪','Counters',act+' active')+ch('⚙','Efficiency',eff.toFixed(0)+'%');
+$('#cs').innerHTML=[0,1,2,3].map(i=>{const cu=D.cur[i],lock=i===3&&!S.open4;return`<button class="cc ${sel&&sel.t==='c'&&sel.i===i?'sel':''} ${cu&&cu.st==='at'?'al':''}" onclick="selK(${i})"><b>${i+1} · ${CN[i].split(' ')[0]}</b><small>${lock?'🔒 Locked':(opOK(i)?'🟢':'🔴')+' '+D.now[i]+' · '+D.q[i].length+' waiting'}</small><small>${cu&&cu.st==='at'?'⚠ Check documents!':cu&&cu.st==='proc'?'Serving…':'&nbsp;'}</small></button>`}).join('');
+$('#ql').innerHTML=[0,1,2,3].map(i=>`<div class="qh">${CL[i]} · ${CN[i]} (${D.q[i].length})</div>`+D.q[i].map(c=>`<span class="tk" onclick="selC(${c.id})">${c.tick}<i style="width:${Math.max(4,c.pat*.6)}%;background:${c.pat>60?'#2e9c6a':c.pat>30?'#f0ad4e':'#d23b3b'}"></i></span>`).join('')).join('');
+lamps.forEach((l,i)=>l.material.color.setHex(i===3&&!S.open4?0x888888:!opOK(i)?0xd23b3b:D.cur[i]?0xf0ad4e:0x2e9c6a));
+const sg=sel?[sel.t,sel.i,sel.c&&sel.c.st,D.now.join(),D.q.map(q=>q.length).join(),D.cur.map(c=>c&&c.st).join(),S.staff.map(s=>s.c).join(),D.open.join()].join('|'):'x';if(sg!==lastSig){lastSig=sg;card()}
+if(sel&&sel.t==='c'&&D.cur[sel.i]&&D.cur[sel.i].st==='proc'){const e=$('#pg');if(e)e.style.width=Math.min(100,D.cur[sel.i].prog/need(D.cur[sel.i])*100)+'%'}
+if(sel&&sel.t==='p'){const e=$('#pp');if(e){e.style.width=Math.max(0,sel.c.pat)+'%';e.style.background=sel.c.pat>60?'#2e9c6a':sel.c.pat>30?'#f0ad4e':'#d23b3b'}}
+const sp=$('#sp'),x=sp.getContext('2d'),h=D.hist;x.clearRect(0,0,190,34);x.strokeStyle='#1f5fa8';x.lineWidth=2;x.beginPath();const mx=Math.max(5,...h);h.forEach((n,i)=>{const px=i*190/60,py=32-n/mx*28;i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke();
+if(D.dirty){qDisp.redraw();D.dirty=0}if(Math.floor(D.t)!==ui.m){ui.m=Math.floor(D.t);clk.redraw()}}
+/* ---------- input ---------- */
+const ptr=new Map(),keys={},rc=new THREE.Raycaster();let pd=0,mv=0;
+const cv=$('#c');cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});mv=0;pd=0;if(ptr.size===2){const[a,b]=[...ptr.values()];pd=Math.hypot(a.x-b.x,a.y-b.y)}});
+cv.addEventListener('pointermove',e=>{const p=ptr.get(e.pointerId);if(!p)return;const dx=e.clientX-p.x,dy=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;mv+=Math.abs(dx)+Math.abs(dy);if(ptr.size===1){cs.a-=dx*.005;cs.e+=dy*.005}else if(ptr.size===2){const[a,b]=[...ptr.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pd)cs.d*=pd/d;pd=d}setCam()});
+cv.addEventListener('pointerup',e=>{if(mv<8&&ptr.size===1){const r=cv.getBoundingClientRect();rc.setFromCamera({x:(e.clientX-r.left)/r.width*2-1,y:-((e.clientY-r.top)/r.height)*2+1},cam);const own=h=>{let p=h.object;while(p&&!(p.userData&&p.userData.o))p=p.parent;return p&&p.userData.o};const hit=rc.intersectObjects(sc.children,true).find(h=>own(h));if(hit){const o=own(hit);sel=o.sv?{t:'p',c:o}:o;sfx.click()}else sel=null;lastSig=''}ptr.delete(e.pointerId);pd=0});
+cv.addEventListener('pointercancel',e=>ptr.delete(e.pointerId));
+cv.addEventListener('wheel',e=>{e.preventDefault();cs.d*=1+Math.sign(e.deltaY)*.08;setCam()},{passive:false});
+addEventListener('keydown',e=>keys[e.key.toLowerCase()]=1);addEventListener('keyup',e=>keys[e.key.toLowerCase()]=0);
+function pan(dt){const k=keys,dx=((k.d||k.arrowright)?1:0)-((k.a||k.arrowleft)?1:0),dz=((k.s||k.arrowdown)?1:0)-((k.w||k.arrowup)?1:0);if(dx||dz){cs.tx+=dx*dt*9;cs.tz+=dz*dt*9;setCam()}}
+/* ---------- main loop ---------- */
+let last=performance.now(),ux=0;
+function loop(now){requestAnimationFrame(loop);try{const dt=Math.min(.05,(now-last)/1000);last=now;pan(dt);frame(dt);ux+=dt;if(ux>.25){ux=0;ui()}ren.render(sc,cam)}catch(e){console.error(e);if(e.message!==lastMsg){lastMsg=e.message;toast('Error: '+e.message)}}}
+seats.forEach(s=>s.g.visible=s.col<S.cols);syncStaff();sObj.forEach((o,i)=>{const s=S.staff[i];o.g.position.set(s.c>=0?CX[s.c]:8.4+(i%3)*.65,0,s.c>=0?-6.2:-7.6);o.path=[]});
+ui();$('#ld').style.display='none';requestAnimationFrame(loop);
+let seen=false;try{seen=!!localStorage.getItem('jpn_tut')}catch(e){}
+seen?intro():tut(0);
+</script></body></html>
